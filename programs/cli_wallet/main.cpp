@@ -82,6 +82,8 @@ int main( int argc, char** argv )
          ("daemon,d", "Run the wallet in daemon mode" )
          ("rpc-http-allowip", bpo::value<vector<string>>()->multitoken(), "Allows only specified IPs to connect to the HTTP endpoint" )
          ("wallet-file,w", bpo::value<string>()->implicit_value("wallet.json"), "wallet to load")
+         ("chain-id", bpo::value< std::string >()->default_value( STEEM_CHAIN_ID ), "chain ID to connect to")
+
 #ifdef IS_TEST_NET
          ("chain-id", bpo::value< std::string >()->default_value( STEEM_CHAIN_ID ), "chain ID to connect to")
 #endif
@@ -103,6 +105,20 @@ int main( int argc, char** argv )
       }
 
       steem::protocol::chain_id_type _steem_chain_id;
+
+  if( options.count("chain-id") )
+      {
+         auto chain_id_str = options.at("chain-id").as< std::string >();
+
+         try
+         {
+            _steem_chain_id = chain_id_type( chain_id_str);
+         }
+         catch( fc::exception& )
+         {
+            FC_ASSERT( false, "Could not parse chain_id as hex string. Chain ID String: ${s}", ("s", chain_id_str) );
+         }
+      }
 
 #ifdef IS_TEST_NET
       if( options.count("chain-id") )

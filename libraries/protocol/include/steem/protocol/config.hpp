@@ -47,7 +47,7 @@
 #define STEEM_BLOCKCHAIN_VERSION              ( version(0, 21, 0) )
 
 #define STEEM_INIT_PUBLIC_KEY_STR             "STM8GC13uCZbP44HzMLV6zPZGwVQ8Nt4Kji8PapsPiNq1BK153XTX"
-#define STEEM_CHAIN_ID fc::sha256()
+#define STEEM_CHAIN_ID                        (fc::sha256::hash("stm"))
 #define STEEM_ADDRESS_PREFIX                  "STM"
 
 #define STEEM_GENESIS_TIME                    (fc::time_point_sec(1458835200))
@@ -69,8 +69,8 @@
 #define STEEM_OWNER_UPDATE_LIMIT                          fc::minutes(60)
 #define STEEM_OWNER_AUTH_HISTORY_TRACKING_START_BLOCK_NUM 3186477
 
-#define STEEM_INIT_SUPPLY                     int64_t(0)
-#define STEEM_SBD_INIT_SUPPLY                 int64_t(0)
+#define STEEM_INIT_SUPPLY                     (int64_t( 250 ) * int64_t( 1000000 ) * int64_t( 1000 )) 
+#define STEEM_SBD_INIT_SUPPLY                 (int64_t( 7 ) * int64_t( 1000000 ) * int64_t( 1000 ))
 
 #endif
 
